@@ -12,38 +12,30 @@ import static org.junit.Assert.assertEquals;
 public class TankTest {
 
     Tank tank;
+    Godzilla godzilla;
+
 
     @Before
-    public void Before(){
-        tank = new Tank("M58 Wolf", 200);
+    public void before(){
+        tank = new Tank("Tank", 100, 25);
+        godzilla = new Godzilla("Godzilla", 100, 25);
     }
-
-    @Test
-    public void hasType(){
-        assertEquals("M58 Wolf", tank.getType());
-    }
-
-    @Test
-    public void hasHealthValue(){
-        assertEquals(200, tank.getHealthValue());
-    }
-
-    @Test
-    public void testHitByKong(){
-        assertEquals("WARNING Kong has hit us", tank.hitByKingKong());
-        assertEquals(180, tank.checkHealthValue());
-    }
-
-    @Test
-    public void testHitByGodzilla(){
-        assertEquals("WARNING Godzilla has hit us", tank.hitByGodzilla());
-        assertEquals(190, tank.checkHealthValue());
-    }
-
     @Test
     public void canAttack(){
+        tank.attack(godzilla);
+        assertEquals(75, godzilla.getHealthValue());
         assertEquals("Guns firing!", tank.attack());
     }
+
+
+    @Test
+    public void canTakeDamage(){
+        tank.takeDamage(25);
+        assertEquals(75, tank.getHealthValue());
+        assertEquals("Tank has been hit!", tank.takeDamage());
+    }
+
+
 
 
 }

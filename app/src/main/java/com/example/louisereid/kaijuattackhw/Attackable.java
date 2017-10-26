@@ -6,5 +6,6 @@ package com.example.louisereid.kaijuattackhw;
 
 public interface Attackable {
 
-    String attack();
+    String attack(Damageable victim);
+
 }

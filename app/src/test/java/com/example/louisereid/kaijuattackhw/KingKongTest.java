@@ -12,54 +12,40 @@ import static org.junit.Assert.assertEquals;
 public class KingKongTest {
 
     KingKong kingKong;
-
+    Chopper chopper;
     @Before
-    public void Before(){
-        kingKong = new KingKong("KingKong", 150, 150);
-    }
-
-    @Test
-    public void hasName(){
-        assertEquals("KingKong", kingKong.getName());
-    }
-
-    @Test
-    public void hasHealthValue(){
-        assertEquals(150, kingKong.getHealthValue());
-    }
-
-    @Test
-    public void hasAttackValue(){
-        assertEquals(150, kingKong.getAttackValue());
+    public void before() {
+        kingKong = new KingKong("King Kong", 100, 25);
+        chopper = new Chopper("Chopper", 100, 25);
     }
 
     @Test
     public void canRoar(){
         assertEquals("OOOH-OOH AHH", kingKong.roar());
-        assertEquals(145, kingKong.getAttackValue());
-    }
-
-    @Test
-    public void canAttack(){
-        assertEquals("Swings punch", kingKong.attack());
-        assertEquals(130, kingKong.getAttackValue());
     }
 
     @Test
     public void canMove(){
-        assertEquals("Swings from buildings", kingKong.move());
-        assertEquals(140, kingKong.getAttackValue());
+        assertEquals("King Kong swings from buildings", kingKong.move());
     }
 
     @Test
-    public void hitByTank(){
-        kingKong.hitByTank();
-        assertEquals(130, kingKong.getHealthValue());
+    public void canAttackChopper(){
+        kingKong.attack(chopper);
+        assertEquals(75, chopper.getHealthValue());
+        assertEquals("King Kong swings punch", kingKong.attack());
+        assertEquals("Chopper hit! Chopper hit!", chopper.takeDamage());
+    }
+    @Test
+    public void canTakeDamage(){
+        chopper.attack(kingKong);
+        assertEquals(75, kingKong.getHealthValue());
+        assertEquals("WAAAHHH", kingKong.takeDamage(25));
     }
 
     @Test
-    public void hitByChopper(){
-        kingKong.hitByChopper();
-        assertEquals(140, kingKong.getHealthValue());
+    public void canDie(){
+        assertEquals("King Kong has been eliminated!", kingKong.dead());
     }
+
 }

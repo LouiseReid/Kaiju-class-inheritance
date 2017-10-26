@@ -12,55 +12,38 @@ import static org.junit.Assert.assertEquals;
 public class GodzillaTest {
 
     Godzilla godzilla;
+    Tank tank;
 
     @Before
-    public void Before() {
-        godzilla = new Godzilla("Godzilla", 100, 100);
-    }
-
-    @Test
-    public void hasName(){
-        assertEquals("Godzilla", godzilla.getName());
-    }
-
-    @Test
-    public void hasHealthValue(){
-        assertEquals(100, godzilla.getHealthValue());
-    }
-
-    @Test
-    public void hasAttackValue(){
-        assertEquals(100, godzilla.getAttackValue());
+    public void before() {
+        godzilla = new Godzilla("Godzilla", 100, 25);
+        tank = new Tank("Tank", 100, 25);
     }
 
     @Test
     public void canRoar(){
         assertEquals("ROOOOAAAAAR!", godzilla.roar());
-        assertEquals(95, godzilla.getAttackValue());
-    }
-
-    @Test
-    public void canAttack(){
-        assertEquals("Swishes tail", godzilla.attack());
-        assertEquals(80, godzilla.getAttackValue());
     }
 
     @Test
     public void canMove(){
-        assertEquals("Stomps around", godzilla.move());
-        assertEquals(90, godzilla.getAttackValue());
+        assertEquals("Godzilla stomps around", godzilla.move());
     }
 
     @Test
-    public void hitByTank(){
-        godzilla.hitByTank();
-        assertEquals(80, godzilla.getHealthValue());
+    public void canAttackTank(){
+        godzilla.attack(tank);
+        assertEquals(75, tank.getHealthValue());
+        assertEquals("Godzilla swishes tail", godzilla.attack());
+        assertEquals("Tank has been hit!", tank.takeDamage());
+    }
+    @Test
+    public void canTakeDamage(){
+        tank.attack(godzilla);
+        assertEquals(75, godzilla.getHealthValue());
+        assertEquals("GRAAAAHH!", godzilla.takeDamage(25));
+        assertEquals("Guns firing!", tank.attack());
     }
 
-    @Test
-    public void hitByChopper(){
-        godzilla.hitByChopper();
-        assertEquals(90, godzilla.getHealthValue());
-    }
 
 }
